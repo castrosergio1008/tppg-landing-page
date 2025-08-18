@@ -201,7 +201,7 @@ export default function Home() {
               </div>
               <div className="mt-4 text-center">
                 <p className="text-lg font-semibold text-[#082A37]">
-                  📋 <em>"Envía tus cotizaciones actuales y descubre cuánto puedes ahorrar"</em>
+                  📋 <em>Envía tus cotizaciones actuales y descubre cuánto puedes ahorrar</em>
                 </p>
               </div>
             </div>
