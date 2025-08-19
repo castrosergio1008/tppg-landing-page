@@ -167,7 +167,7 @@ export default function Home() {
             <nav className="hidden md:flex space-x-8">
               <a href="#inicio" className="text-gray-600 hover:text-[#7ED957] transition-colors font-medium">Inicio</a>
               <a href="#servicios" className="text-gray-600 hover:text-[#7ED957] transition-colors font-medium">Servicios</a>
-              <a href="#contacto" className="bg-[#082A37] text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-colors font-medium">Contacto</a>
+              <a href="#contacto" className="text-gray-600 hover:text-[#7ED957] transition-colors font-medium">Contacto</a>
             </nav>
           </div>
         </div>
@@ -251,10 +251,10 @@ export default function Home() {
                     value={formData.nombre}
                     onChange={handleChange}
                     disabled={isSubmitting}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white transition-colors ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white text-gray-800 transition-colors ${
                       errors.nombre ? 'border-red-500' : 'border-gray-300'
                     } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    placeholder="Tu nombre completo"
+                    placeholder="Tu nombre completo" 
                   />
                   {errors.nombre && (
                     <p className="text-red-500 text-sm mt-1 flex items-center">
@@ -276,7 +276,7 @@ export default function Home() {
                     value={formData.email}
                     onChange={handleChange}
                     disabled={isSubmitting}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white transition-colors ${
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white text-gray-800 transition-colors ${
                       errors.email ? 'border-red-500' : 'border-gray-300'
                     } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                     placeholder="tu@email.com"
@@ -302,7 +302,7 @@ export default function Home() {
                   value={formData.telefono}
                   onChange={handleChange}
                   disabled={isSubmitting}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white transition-colors ${
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white text-gray-800 transition-colors ${
                     errors.telefono ? 'border-red-500' : 'border-gray-300'
                   } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                   placeholder="(555) 123-4567"
@@ -326,7 +326,7 @@ export default function Home() {
                   value={formData.tipoServicio}
                   onChange={handleChange}
                   disabled={isSubmitting}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white transition-colors ${
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white text-gray-800 transition-colors ${
                     errors.tipoServicio ? 'border-red-500' : 'border-gray-300'
                   } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
@@ -406,7 +406,7 @@ export default function Home() {
                   onChange={handleChange}
                   disabled={isSubmitting}
                   rows="5"
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] resize-none bg-white transition-colors ${
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] resize-none bg-white text-gray-800 transition-colors ${
                     errors.mensaje ? 'border-red-500' : 'border-gray-300'
                   } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                   placeholder="Describe tu proyecto: tamaño de la casa/oficina, colores preferidos, fechas estimadas, etc."
@@ -447,7 +447,7 @@ export default function Home() {
               {/* Error general */}
               {errors.general && (
                 <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mt-6 flex items-center">
-                  <span className="mr-2">❌</span>
+                  <span className="mr-2">⌘</span>
                   {errors.general}
                 </div>
               )}
@@ -549,7 +549,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#082A37] text-white py-12">
+      <footer className="bg-[#F0F0F0] text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="flex items-center justify-center mb-4">
@@ -559,15 +559,15 @@ export default function Home() {
                 className="h-16 w-auto"
               />
             </div>
-            <p className="text-gray-300 mb-6">
+            <p className="text-gray-500 mb-6">
               Transformando hogares y negocios con pintura profesional desde 2024
             </p>
             <div className="flex justify-center space-x-6">
-              <a href="#" className="text-gray-300 hover:text-[#7ED957] transition-colors">Facebook</a>
-              <a href="#" className="text-gray-300 hover:text-[#7ED957] transition-colors">Instagram</a>
-              <a href="#" className="text-gray-300 hover:text-[#7ED957] transition-colors">Google</a>
+              <a href="#" className="text-gray-500 hover:text-[#7ED957] transition-colors">Facebook</a>
+              <a href="#" className="text-gray-500 hover:text-[#7ED957] transition-colors">Instagram</a>
+              <a href="#" className="text-gray-500 hover:text-[#7ED957] transition-colors">Google</a>
             </div>
-            <div className="mt-8 pt-8 border-t border-gray-700 text-sm text-gray-400">
+            <div className="mt-8 pt-8 border-t border-gray-700 text-sm text-gray-500">
               © 2024 The Pro Paint Group. Todos los derechos reservados.
             </div>
           </div>
