@@ -1,6 +1,9 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Home() {
+  const router = useRouter();
+  
   // Estado del formulario
   const initialState = {
     nombre: '',
@@ -96,6 +99,11 @@ export default function Home() {
     
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
+      // Scroll al primer error
+      const firstErrorElement = document.querySelector('.border-red-500');
+      if (firstErrorElement) {
+        firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
@@ -103,20 +111,41 @@ export default function Home() {
     setErrors({});
 
     try {
-      // TODO: Aquí conectaremos con la API Route
-      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulación
+      // Crear FormData para enviar archivos
+      const submitFormData = new FormData();
       
-      console.log('Lead de pintura capturado:', formData);
+      // Agregar campos de texto
+      Object.keys(formData).forEach(key => {
+        if (key !== 'cotizacionesArchivos') {
+          submitFormData.append(key, formData[key]);
+        }
+      });
       
-      // Éxito: reiniciar y mostrar confirmación
-      setFormData(initialState);
-      setSubmitSuccess(true);
-      
-      // Ocultar mensaje después de 5 segundos
-      setTimeout(() => setSubmitSuccess(false), 5000);
+      // Agregar archivos
+      formData.cotizacionesArchivos.forEach(file => {
+        submitFormData.append('cotizacionesArchivos', file);
+      });
+
+      // Enviar a API
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        body: submitFormData,
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || 'Error al enviar la solicitud');
+      }
+
+      // Éxito: redirigir a página de agradecimiento
+      router.push('/gracias');
       
     } catch (error) {
-      setErrors({ general: 'Hubo un error al enviar el formulario. Por favor, intenta nuevamente.' });
+      console.error('Error enviando formulario:', error);
+      setErrors({ 
+        general: 'Hubo un error al enviar el formulario. Por favor, verifica tu conexión e intenta nuevamente.' 
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -208,19 +237,7 @@ export default function Home() {
           </div>
 
           <div className="bg-white rounded-2xl shadow-sm p-8 md:p-12 border border-gray-100">
-            {submitSuccess && (
-              <div className="bg-[#7ED957]/10 border border-[#7ED957] text-[#082A37] px-6 py-4 rounded-lg mb-6">
-                <div className="flex items-center">
-                  <span className="text-2xl mr-3">✅</span>
-                  <div>
-                    <p className="font-semibold">¡Solicitud enviada exitosamente!</p>
-                    <p className="text-sm">Nos pondremos en contacto contigo pronto para programar tu cotización gratuita.</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <div onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType="multipart/form-data">
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Nombre */}
                 <div>
@@ -233,13 +250,17 @@ export default function Home() {
                     name="nombre"
                     value={formData.nombre}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white ${
+                    disabled={isSubmitting}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white transition-colors ${
                       errors.nombre ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                     placeholder="Tu nombre completo"
                   />
                   {errors.nombre && (
-                    <p className="text-red-500 text-sm mt-1">{errors.nombre}</p>
+                    <p className="text-red-500 text-sm mt-1 flex items-center">
+                      <span className="mr-1">⚠️</span>
+                      {errors.nombre}
+                    </p>
                   )}
                 </div>
 
@@ -254,13 +275,17 @@ export default function Home() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white ${
+                    disabled={isSubmitting}
+                    className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white transition-colors ${
                       errors.email ? 'border-red-500' : 'border-gray-300'
-                    }`}
+                    } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                     placeholder="tu@email.com"
                   />
                   {errors.email && (
-                    <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                    <p className="text-red-500 text-sm mt-1 flex items-center">
+                      <span className="mr-1">⚠️</span>
+                      {errors.email}
+                    </p>
                   )}
                 </div>
               </div>
@@ -276,13 +301,17 @@ export default function Home() {
                   name="telefono"
                   value={formData.telefono}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white ${
+                  disabled={isSubmitting}
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white transition-colors ${
                     errors.telefono ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                   placeholder="(555) 123-4567"
                 />
                 {errors.telefono && (
-                  <p className="text-red-500 text-sm mt-1">{errors.telefono}</p>
+                  <p className="text-red-500 text-sm mt-1 flex items-center">
+                    <span className="mr-1">⚠️</span>
+                    {errors.telefono}
+                  </p>
                 )}
               </div>
 
@@ -296,9 +325,10 @@ export default function Home() {
                   name="tipoServicio"
                   value={formData.tipoServicio}
                   onChange={handleChange}
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white ${
+                  disabled={isSubmitting}
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white transition-colors ${
                     errors.tipoServicio ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                 >
                   <option value="">Selecciona el tipo de servicio</option>
                   <option value="interior">Pintura Interior</option>
@@ -308,7 +338,10 @@ export default function Home() {
                   <option value="otro">Otro</option>
                 </select>
                 {errors.tipoServicio && (
-                  <p className="text-red-500 text-sm mt-1">{errors.tipoServicio}</p>
+                  <p className="text-red-500 text-sm mt-1 flex items-center">
+                    <span className="mr-1">⚠️</span>
+                    {errors.tipoServicio}
+                  </p>
                 )}
               </div>
 
@@ -320,7 +353,9 @@ export default function Home() {
                     Adjunta cotizaciones de otros proveedores para garantizar una mejor oferta
                   </span>
                 </label>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-[#7ED957] transition-colors">
+                <div className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
+                  isSubmitting ? 'opacity-50 cursor-not-allowed border-gray-200' : 'border-gray-300 hover:border-[#7ED957]'
+                }`}>
                   <input
                     type="file"
                     id="cotizacionesArchivos"
@@ -328,11 +363,12 @@ export default function Home() {
                     onChange={handleChange}
                     multiple
                     accept=".pdf"
+                    disabled={isSubmitting}
                     className="hidden"
                   />
                   <label 
                     htmlFor="cotizacionesArchivos" 
-                    className="cursor-pointer flex flex-col items-center"
+                    className={`cursor-pointer flex flex-col items-center ${isSubmitting ? 'cursor-not-allowed' : ''}`}
                   >
                     <div className="text-4xl text-gray-400 mb-2">📄</div>
                     <p className="text-gray-600 font-medium">Haz clic para seleccionar archivos PDF</p>
@@ -368,14 +404,18 @@ export default function Home() {
                   name="mensaje"
                   value={formData.mensaje}
                   onChange={handleChange}
+                  disabled={isSubmitting}
                   rows="5"
-                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] resize-none bg-white ${
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] resize-none bg-white transition-colors ${
                     errors.mensaje ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  } ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                   placeholder="Describe tu proyecto: tamaño de la casa/oficina, colores preferidos, fechas estimadas, etc."
                 ></textarea>
                 {errors.mensaje && (
-                  <p className="text-red-500 text-sm mt-1">{errors.mensaje}</p>
+                  <p className="text-red-500 text-sm mt-1 flex items-center">
+                    <span className="mr-1">⚠️</span>
+                    {errors.mensaje}
+                  </p>
                 )}
               </div>
 
@@ -387,20 +427,27 @@ export default function Home() {
                     name="aceptaTerminos"
                     checked={formData.aceptaTerminos}
                     onChange={handleChange}
-                    className="mt-1 mr-3 h-4 w-4 text-[#7ED957]"
+                    disabled={isSubmitting}
+                    className={`mt-1 mr-3 h-4 w-4 text-[#7ED957] transition-colors ${
+                      isSubmitting ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
                   />
                   <span className="text-sm text-gray-700">
                     Acepto los términos y condiciones y autorizo el tratamiento de mis datos para recibir información sobre servicios de pintura *
                   </span>
                 </label>
                 {errors.aceptaTerminos && (
-                  <p className="text-red-500 text-sm mt-1">{errors.aceptaTerminos}</p>
+                  <p className="text-red-500 text-sm mt-1 flex items-center">
+                    <span className="mr-1">⚠️</span>
+                    {errors.aceptaTerminos}
+                  </p>
                 )}
               </div>
 
               {/* Error general */}
               {errors.general && (
-                <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mt-6">
+                <div className="bg-red-50 border border-red-200 text-red-800 px-4 py-3 rounded-lg mt-6 flex items-center">
+                  <span className="mr-2">❌</span>
                   {errors.general}
                 </div>
               )}
@@ -410,7 +457,6 @@ export default function Home() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  onClick={handleSubmit}
                   className={`w-full py-4 px-6 rounded-lg font-semibold text-white transition-all ${
                     isSubmitting
                       ? 'bg-gray-400 cursor-not-allowed'
@@ -430,7 +476,7 @@ export default function Home() {
                   )}
                 </button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </section>
