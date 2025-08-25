@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 
 export default function Home() {
   const router = useRouter();
@@ -46,6 +47,8 @@ export default function Home() {
         [name]: ''
       }));
     }
+
+
   };
 
   const validateEmail = (email) => {
@@ -152,6 +155,46 @@ export default function Home() {
   };
 
   return (
+    <>
+    {/* 2. Añadir el bloque Head con todas las etiquetas SEO */}
+      <Head>
+        <title>Pintores Profesionales | Garantizamos Mejorar tu Cotización - The Pro Paint Group</title>
+        <meta 
+          name="description" 
+          content="Servicios de pintura interior, exterior y comercial. Envíanos tu cotización actual y te garantizamos un mejor precio con acabados de alta calidad. ¡Solicita tu visita gratuita!" 
+        />
+        <meta name="keywords" content="pintores, pintura de casas, pintura comercial, cotización de pintura, mejorar cotización pintura, servicios de pintura" />
+        <link rel="canonical" href="https://www.tu-dominio.com" /> {/* Reemplaza con tu dominio */}
+        
+        {/* Schema Markup para Negocio Local */}
+        <script 
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "PaintingService",
+            "name": "The Pro Paint Group",
+            "image": "https://www.tu-dominio.com/logotppg.png", // Reemplaza con la URL completa de tu logo
+            "url": "https://www.tu-dominio.com", // Reemplaza con tu dominio
+            "telephone": "+1234567890", // Reemplaza con tu teléfono
+            "priceRange": "$$",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "123 Main St",
+              "addressLocality": "City",
+              "addressRegion": "State",
+              "postalCode": "12345",
+              "addressCountry": "US" // Reemplaza con tu información
+            },
+            "description": "Servicios profesionales de pintura interior, exterior y comercial. Garantizamos mejorar cualquier cotización existente.",
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+              "opens": "09:00",
+              "closes": "17:00"
+            }
+          })}}
+        />
+      </Head>
     <div className="min-h-screen bg-white">
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-100">
@@ -574,5 +617,6 @@ export default function Home() {
         </div>
       </footer>
     </div>
+    </>
   );
 }
