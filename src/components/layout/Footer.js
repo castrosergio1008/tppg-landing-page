@@ -10,6 +10,8 @@ export default function Footer() {
               <Image
                 src="/logotppg.png"
                 alt="The Pro Paint Group Logo"  
+                width={100}
+                height={80}
                 className="h-16 w-auto"
               />
             </div>
@@ -17,14 +19,13 @@ export default function Footer() {
               Transformando hogares y negocios con pintura profesional desde 2024
             </p>
             <div className="flex justify-center space-x-6">
-              <Link href="#">
-                <a className="text-gray-500 hover:text-[#7ED957] transition-colors">Facebook</a>
+              <Link href="#" className="text-gray-500 hover:text-[#7ED957] transition-colors">
+              Facebook
               </Link>
-              <Link href="#">
-                <a className="text-gray-500 hover:text-[#7ED957] transition-colors">Instagram</a>
+              <Link href="#" className="text-gray-500 hover:text-[#7ED957] transition-colors">Instagram
               </Link>
-              <Link href="#">
-                <a className="text-gray-500 hover:text-[#7ED957] transition-colors">Google</a>
+              <Link href="#" className="text-gray-500 hover:text-[#7ED957] transition-colors">
+              Google
               </Link>
             </div>
             <div className="mt-8 pt-8 border-t border-gray-700 text-sm text-gray-500">
