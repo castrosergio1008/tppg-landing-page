@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import Layout from '../components/layout/Layout';
 
 export default function Home() {
   const router = useRouter();
@@ -196,26 +197,6 @@ export default function Home() {
         />
       </Head>
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center">
-              <img 
-                src="/logotppg.png" 
-                alt="The Pro Paint Group Logo" 
-                className="h-20 w-auto"
-              />
-            </div>
-            <nav className="hidden md:flex space-x-8">
-              <a href="#inicio" className="text-gray-600 hover:text-[#7ED957] transition-colors font-medium">Inicio</a>
-              <a href="#servicios" className="text-gray-600 hover:text-[#7ED957] transition-colors font-medium">Servicios</a>
-              <a href="#contacto" className="text-gray-600 hover:text-[#7ED957] transition-colors font-medium">Contacto</a>
-            </nav>
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section id="inicio" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center max-w-4xl mx-auto">
@@ -590,32 +571,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-[#F0F0F0] text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-4">
-              <img 
-                src="/logotppg.png" 
-                alt="The Pro Paint Group Logo" 
-                className="h-16 w-auto"
-              />
-            </div>
-            <p className="text-gray-500 mb-6">
-              Transformando hogares y negocios con pintura profesional desde 2024
-            </p>
-            <div className="flex justify-center space-x-6">
-              <a href="#" className="text-gray-500 hover:text-[#7ED957] transition-colors">Facebook</a>
-              <a href="#" className="text-gray-500 hover:text-[#7ED957] transition-colors">Instagram</a>
-              <a href="#" className="text-gray-500 hover:text-[#7ED957] transition-colors">Google</a>
-            </div>
-            <div className="mt-8 pt-8 border-t border-gray-700 text-sm text-gray-500">
-              © 2024 The Pro Paint Group. Todos los derechos reservados.
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
     </>
   );
