@@ -1,7 +1,8 @@
 // pages/gracias.js
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import Head from 'next/head';
+import SEO from '../components/layout/SEO';
+import Image from 'next/image';
 
 export default function Gracias() {
   const router = useRouter();
@@ -33,11 +34,12 @@ export default function Gracias() {
 
   return (
     <>
-      <Head>
-        <title>¡Solicitud Enviada! - The Pro Paint Group</title>
-        <meta name="description" content="Tu solicitud de cotización ha sido enviada exitosamente. Te contactaremos pronto." />
+            <SEO
+        title="¡Solicitud Enviada!"
+        description="Tu solicitud de cotización ha sido enviada exitosamente. Te contactaremos pronto."
+      >
         <meta name="robots" content="noindex" />
-      </Head>
+      </SEO>
 
       <div className="min-h-screen bg-gradient-to-br from-[#7ED957]/10 via-white to-[#082A37]/5">
         {/* Header simplificado */}
@@ -45,9 +47,11 @@ export default function Gracias() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-4">
               <div className="flex items-center cursor-pointer" onClick={() => router.push('/')}>
-                <img 
+                                <Image 
                   src="/logotppg.png" 
                   alt="The Pro Paint Group Logo" 
+                  width={200}
+                  height={80}
                   className="h-20 w-auto"
                 />
               </div>
@@ -231,17 +235,19 @@ export default function Gracias() {
         </div>
 
         {/* Footer simplificado */}
-        <footer className="bg-[#082A37] text-white py-8 mt-16">
+        <footer className="bg-[#F0F0F0] py-8 mt-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <div className="flex items-center justify-center mb-4">
-                <img 
+                <Image 
                   src="/logotppg.png" 
                   alt="The Pro Paint Group Logo" 
+                  width={120}
+                  height={48}
                   className="h-12 w-auto"
                 />
               </div>
-              <p className="text-gray-300 text-sm">
+              <p className="text-gray-500 text-sm">
                 © 2024 The Pro Paint Group. Transformando espacios con calidad garantizada.
               </p>
             </div>

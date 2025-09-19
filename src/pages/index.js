@@ -1,4 +1,4 @@
-import Head from "next/head";
+import SEO from "../components/layout/SEO";
 import Layout from "../components/layout/Layout";
 import HeroSection from "../components/sections/HeroSection";
 import AboutSection from "../components/sections/AboutSection";
@@ -9,21 +9,12 @@ import InfoSection from "../components/sections/InfoSection";
 export default function Home() {
   return (
     <>
-      <Head>
-        <title>
-          Pintores Profesionales | Garantizamos Mejorar tu Cotización - The Pro
-          Paint Group
-        </title>
-        <meta
-          name="description"
-          content="Servicios de pintura interior, exterior y comercial. Envíanos tu cotización actual y te garantizamos un mejor precio con acabados de alta calidad. ¡Solicita tu visita gratuita!"
-        />
-        <meta
-          name="keywords"
-          content="pintores, pintura de casas, pintura comercial, cotización de pintura, mejorar cotización pintura, servicios de pintura"
-        />
-        <link rel="canonical" href="https://www.tu-dominio.com" />{" "}
-        {/* Reemplaza con tu dominio */}
+            <SEO
+        title="Pintores Profesionales | Garantizamos Mejorar tu Cotización"
+        description="Servicios de pintura interior, exterior y comercial. Envíanos tu cotización actual y te garantizamos un mejor precio con acabados de alta calidad. ¡Solicita tu visita gratuita!"
+        keywords="pintores, pintura de casas, pintura comercial, cotización de pintura, mejorar cotización pintura, servicios de pintura"
+        canonical="https://www.tu-dominio.com" // Reemplaza con tu dominio
+      >
         {/* Schema Markup para Negocio Local */}
         <script
           type="application/ld+json"
@@ -35,7 +26,7 @@ export default function Home() {
               image: "https://www.tu-dominio.com/logotppg.png", // Reemplaza con la URL completa de tu logo
               url: "https://www.tu-dominio.com", // Reemplaza con tu dominio
               telephone: "+1234567890", // Reemplaza con tu teléfono
-              priceRange: "$$",
+              priceRange: "$",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "123 Main St",
@@ -61,7 +52,7 @@ export default function Home() {
             }),
           }}
         />
-      </Head>
+      </SEO>
       <Layout>
         <HeroSection />
         {/* Formulario de Contacto */}

@@ -24,7 +24,7 @@
 ### 🚧 Tareas en Progreso
 
 #### Integración de Backend
-- [ ] Configurar variables de entorno
+- [x] Configurar variables de entorno
 - [ ] Implementar API Route para formulario
 - [ ] Configurar nodemailer
 - [ ] Setup de formidable para archivos
@@ -85,19 +85,39 @@
    - [ ] Tests E2E
    - [ ] A/B Testing
 
+### Audit y Plan de Mejoras (18 de septiembre de 2025)
+
+#### Diagnóstico General
+- **Fortalezas:** Stack moderno, buena estructura de componentes, uso de Tailwind CSS, **excelente manejo de la seguridad de las credenciales**.
+- **Áreas a Mejorar:** Calidad de Código, Rendimiento y SEO.
+
+#### Plan de Acción Priorizado
+1.  **Seguridad (Crítico)**
+    *   [x] **Issue #1**: Mover credenciales de `nodemailer` a variables de entorno en `.env.local`. *(VERIFICADO Y CORRECTO)*
+2.  **Calidad de Código**
+    *   [x] Optimizar la creación del `transporter` en `src/pages/api/leads.js`.
+    *   [x] Separar la lógica de parseo del formulario en una función auxiliar.
+    *   [x] Separar la lógica de envío de correos en una función auxiliar.
+    *   [x] Mejorar el manejo de errores con un bloque `finally` para la limpieza de archivos.
+3.  **Rendimiento**
+    *   [x] Migrar etiquetas `<img>` al componente `<Image>` de `next/image` para optimización automática.
+    *   [x] Cargar Google Analytics con el componente `<Script>` de `next/script` para evitar bloqueo de renderizado.
+4.  **SEO**
+    *   [x] Implementar metadatos dinámicos por página con componente `SEO` reutilizable.
+    *   [x] Añadir metadatos de Open Graph para previsualizaciones en redes sociales.
+
 ## 🐛 Issues Conocidos
 
 1. **Alta Prioridad**
-   - El texto del formulario está en color blanco (necesita ajuste de contraste)
-   - Falta validación de archivos en el frontend
+   - [x] Falta validación de archivos en el frontend. (Feedback visual implementado)
 
 2. **Media Prioridad**
-   - Optimizar imágenes para mejor performance
-   - Implementar manejo de errores más robusto
+   - [x] Implementar manejo de errores más robusto en la API.
 
 3. **Baja Prioridad**
-   - Agregar animaciones de carga
-   - Mejorar accesibilidad
+   - [x] Agregar animaciones de carga.
+   - Mejorar accesibilidad.
+   - Implementar estrategia de metadatos dinámicos para SEO.
 
 ## 📊 Métricas a Implementar
 
@@ -144,4 +164,4 @@
 
 ---
 
-🔄 Última actualización: 19 de agosto de 2025
+🔄 Última actualización: 18 de septiembre de 2025

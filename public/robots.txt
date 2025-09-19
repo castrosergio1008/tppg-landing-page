@@ -1,9 +1,7 @@
-# Permite a todos los rastreadores acceder a todo el sitio
 User-agent: *
 Allow: /
 
-# Bloquea el rastreo de la carpeta de la API para que no aparezca en los resultados
 Disallow: /api/
+Disallow: /gracias
 
-# Indica la ubicación de tu sitemap
 Sitemap: https://www.tu-dominio.com/sitemap.xml

@@ -14,26 +14,38 @@ export default function AboutSection() {
     mensaje: "",
     cotizacionesArchivos: [],
     aceptaTerminos: false,
+    fileErrors: [], // Added fileErrors to initial state
   };
 
   const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [fileErrors, setFileErrors] = useState([]);
 
   // Funciones del formulario
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
 
     if (type === "file") {
-      const validFiles = Array.from(files).filter(
-        (file) =>
-          file.type === "application/pdf" && file.size <= 10 * 1024 * 1024 // 10MB max
-      );
+      const newFileErrors = [];
+      const currentFiles = Array.from(formData.cotizacionesArchivos); // Get current valid files
+
+      Array.from(files).forEach((file) => {
+        if (file.type !== "application/pdf") {
+          newFileErrors.push(`El archivo "${file.name}" no es un PDF.`);
+        } else if (file.size > 10 * 1024 * 1024) {
+          newFileErrors.push(`El archivo "${file.name}" excede el tamaño máximo de 10MB.`);
+        } else {
+          currentFiles.push(file); // Add valid files to the list
+        }
+      });
+
       setFormData((prev) => ({
         ...prev,
-        [name]: validFiles,
+        [name]: currentFiles, // Update with all valid files
       }));
+      setFileErrors(newFileErrors); // Set file-specific errors
     } else {
       setFormData((prev) => ({
         ...prev,
@@ -392,6 +404,24 @@ export default function AboutSection() {
                                 {(file.size / (1024 * 1024)).toFixed(2)} MB
                               </span>
                             </div>
+                          ))}
+                        </div>
+                      )}
+                      {fileErrors.length > 0 && (
+                        <div className="mt-2 text-red-500 text-sm">
+                          {fileErrors.map((error, index) => (
+                            <p key={index} className="flex items-center">
+                              <span className="mr-1">⚠️</span> {error}
+                            </p>
+                          ))}
+                        </div>
+                      )}
+                      {fileErrors.length > 0 && (
+                        <div className="mt-2 text-red-500 text-sm">
+                          {fileErrors.map((error, index) => (
+                            <p key={index} className="flex items-center">
+                              <span className="mr-1">⚠️</span> {error}
+                            </p>
                           ))}
                         </div>
                       )}
