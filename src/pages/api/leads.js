@@ -91,13 +91,13 @@ async function sendEmails(leadData, attachments) {
               <p>Your quote request has been received</p>
             </div>
             <div class="content">
-              <h2>Hi ${leadData.nombre},</h2>
+              <h2>Hi ${leadData.name},</h2>
               <p>We are pleased to confirm that we have received your quote request for <span class="highlight">${getServiceName(leadData.tipoServicio)}</span>.</p>
               <h3>📋 Summary of your request:</h3>
               <ul>
-                <li><strong>Name:</strong> ${leadData.nombre}</li>
-                <li><strong>Service:</strong> ${getServiceName(leadData.tipoServicio)}</li>
-                <li><strong>Phone:</strong> ${leadData.telefono}</li>
+                <li><strong>Name:</strong> ${leadData.name}</li>
+                <li><strong>Service:</strong> ${getServiceName(leadData.serviceType)}</li>
+                <li><strong>Phone:</strong> ${leadData.phone}</li>
                 ${attachments.length > 0 ? `<li><strong>Attached quotes:</strong> ${attachments.length} file(s)</li>` : ''}
               </ul>
               <h3>⏰ What's next?</h3>
@@ -112,17 +112,17 @@ async function sendEmails(leadData, attachments) {
   const internalEmailOptions = {
     from: process.env.SMTP_USER,
     to: process.env.INTERNAL_EMAIL || process.env.SMTP_USER,
-    subject: `🔥 NEW LEAD: ${leadData.nombre} - ${getServiceName(leadData.tipoServicio)}`,
+    subject: `🔥 NEW LEAD: ${leadData.name} - ${getServiceName(leadData.serviceType)}`,
     html: `
         <!DOCTYPE html>
         <html>
         <body>
           <h1>🎯 NEW LEAD RECEIVED</h1>
-          <p><strong>Client:</strong> ${leadData.nombre}</p>
+          <p><strong>Client:</strong> ${leadData.name}</p>
           <p><strong>Email:</strong> ${leadData.email}</p>
-          <p><strong>Phone:</strong> ${leadData.telefono}</p>
-          <p><strong>Service:</strong> ${getServiceName(leadData.tipoServicio)}</p>
-          <p><strong>Message:</strong> ${leadData.mensaje}</p>
+          <p><strong>Phone:</strong> ${leadData.phone}</p>
+          <p><strong>Service:</strong> ${getServiceName(leadData.serviceType)}</p>
+          <p><strong>Message:</strong> ${leadData.message}</p>
         </body>
         </html>
       `,
@@ -164,16 +164,16 @@ export default async function handler(req, res) {
     const { fields, files } = await parseForm(req);
 
     const leadData = {
-      nombre: fields.nombre?.[0] || '',
+      name: fields.name?.[0] || '',
       email: fields.email?.[0] || '',
-      telefono: fields.telefono?.[0] || '',
-      tipoServicio: fields.tipoServicio?.[0] || '',
-      mensaje: fields.mensaje?.[0] || '',
+      phone: fields.phone?.[0] || '',
+      serviceType: fields.serviceType?.[0] || '',
+      message: fields.message?.[0] || '',
       fechaCreacion: new Date().toISOString(),
       ip: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     };
 
-    const requiredFields = ['nombre', 'email', 'telefono', 'tipoServicio', 'mensaje'];
+    const requiredFields = ['name', 'email', 'phone', 'serviceType', 'message'];
     const missingFields = requiredFields.filter(field => !leadData[field]);
     if (missingFields.length > 0) {
       throw new ValidationError('Missing required fields', { missingFields });
