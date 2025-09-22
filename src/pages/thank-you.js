@@ -140,7 +140,7 @@ export default function ThankYou() {
 
           {/* Process Information */}
           <div className="bg-gray-50 rounded-2xl p-8 md:p-12 mb-12">
-            <h3 className="text-3xl font-bold text-center text-gray-900 mb-8">What's Next?</h3>
+            <h3 className="text-3xl font-bold text-center text-gray-900 mb-8">What&apos;s Next?</h3>
 
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
@@ -193,7 +193,7 @@ export default function ThankYou() {
                     {'⭐'.repeat(5)}
                   </div>
                 </div>
-                <p className="text-gray-600 italic mb-4">"Excellent service, they delivered on everything promised and the price was better than all other quotes."</p>
+                <p className="text-gray-600 italic mb-4">{`"Excellent service, they delivered on everything promised and the price was better than all other quotes."`}</p>
                 <p className="font-semibold text-gray-900">- Maria Gonzalez</p>
               </div>
 
@@ -203,7 +203,7 @@ export default function ThankYou() {
                     {'⭐'.repeat(5)}
                   </div>
                 </div>
-                <p className="text-gray-600 italic mb-4">"Professionals from start to finish. The quality of the work exceeded my expectations and they were very punctual."</p>
+                <p className="text-gray-600 italic mb-4">{`"Professionals from start to finish. The quality of the work exceeded my expectations and they were very punctual."`}</p>
                 <p className="font-semibold text-gray-900">- Carlos Rodriguez</p>
               </div>
 
@@ -213,7 +213,7 @@ export default function ThankYou() {
                     {'⭐'.repeat(5)}
                   </div>
                 </div>
-                <p className="text-gray-600 italic mb-4">"They responded super fast and helped me save a lot compared to other companies. Highly recommended!"</p>
+                <p className="text-gray-600 italic mb-4">{`"They responded super fast and helped me save a lot compared to other companies. Highly recommended!"`}</p>
                 <p className="font-semibold text-gray-900">- Ana Martin</p>
               </div>
             </div>

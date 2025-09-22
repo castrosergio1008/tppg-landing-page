@@ -204,7 +204,7 @@ export default function AboutSection() {
                     <div className="flex items-center">
                       <span className="text-[#7ED957] mr-2">✓</span>
                       <span>
-                        <strong>Guaranteed final price:</strong> We don't charge
+                        <strong>Guaranteed final price:</strong> We don&apos;t charge
                         hidden extras, the price we quote is the price you pay.
                       </span>
                     </div>
