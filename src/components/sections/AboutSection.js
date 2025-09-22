@@ -7,13 +7,13 @@ export default function AboutSection() {
 
   // Form state
   const initialState = {
-    nombre: "",
+    name: "",
     email: "",
-    telefono: "",
-    tipoServicio: "",
-    mensaje: "",
-    cotizacionesArchivos: [],
-    aceptaTerminos: false,
+    phone: "",
+    serviceType: "",
+    message: "",
+    quoteFiles: [],
+    acceptTerms: false,
     fileErrors: [], // Added fileErrors to initial state
   };
 
@@ -29,7 +29,7 @@ export default function AboutSection() {
 
     if (type === "file") {
       const newFileErrors = [];
-      const currentFiles = Array.from(formData.cotizacionesArchivos); // Get current valid files
+      const currentFiles = Array.from(formData.quoteFiles); // Get current valid files
 
       Array.from(files).forEach((file) => {
         if (file.type !== "application/pdf") {
@@ -75,8 +75,8 @@ export default function AboutSection() {
   const validateForm = () => {
     const newErrors = {};
 
-    if (!formData.nombre.trim()) {
-      newErrors.nombre = "Full name is required";
+    if (!formData.name.trim()) {
+      newErrors.name = "Full name is required";
     }
 
     if (!formData.email.trim()) {
@@ -85,22 +85,22 @@ export default function AboutSection() {
       newErrors.email = "Invalid email format";
     }
 
-    if (!formData.telefono.trim()) {
-      newErrors.telefono = "Phone number is required";
-    } else if (!validatePhone(formData.telefono)) {
-      newErrors.telefono = "Invalid phone number format";
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required";
+    } else if (!validatePhone(formData.phone)) {
+      newErrors.phone = "Invalid phone number format";
     }
 
-    if (!formData.tipoServicio) {
-      newErrors.tipoServicio = "Please select a service type";
+    if (!formData.serviceType) {
+      newErrors.serviceType = "Please select a service type";
     }
 
-    if (!formData.mensaje.trim()) {
-      newErrors.mensaje = "Message is required";
+    if (!formData.message.trim()) {
+      newErrors.message = "Message is required";
     }
 
-    if (!formData.aceptaTerminos) {
-      newErrors.aceptaTerminos = "You must accept the terms and conditions";
+    if (!formData.acceptTerms) {
+      newErrors.acceptTerms = "You must accept the terms and conditions";
     }
 
     return newErrors;
@@ -133,14 +133,14 @@ export default function AboutSection() {
 
       // Add text fields
       Object.keys(formData).forEach((key) => {
-        if (key !== "cotizacionesArchivos") {
+        if (key !== "quoteFiles") {
           submitFormData.append(key, formData[key]);
         }
       });
 
       // Add files
-      formData.cotizacionesArchivos.forEach((file) => {
-        submitFormData.append("cotizacionesArchivos", file);
+      formData.quoteFiles.forEach((file) => {
+        submitFormData.append("quoteFiles", file);
       });
 
       // Send to API
@@ -226,29 +226,29 @@ export default function AboutSection() {
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <label
-                        htmlFor="nombre"
+                        htmlFor="name"
                         className="block text-gray-700 font-semibold mb-2"
                       >
                         Full Name *
                       </label>
                       <input
                         type="text"
-                        id="nombre"
-                        name="nombre"
-                        value={formData.nombre}
+                        id="name"
+                        name="name"
+                        value={formData.name}
                         onChange={handleChange}
                         disabled={isSubmitting}
                         className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white text-gray-800 transition-colors ${
-                          errors.nombre ? "border-red-500" : "border-gray-300"
+                          errors.name ? "border-red-500" : "border-gray-300"
                         } ${
                           isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                         }`}
                         placeholder="Your full name"
                       />
-                      {errors.nombre && (
+                      {errors.name && (
                         <p className="text-red-500 text-sm mt-1 flex items-center">
                           <span className="mr-1">⚠️</span>
-                          {errors.nombre}
+                          {errors.name}
                         </p>
                       )}
                     </div>
@@ -283,45 +283,45 @@ export default function AboutSection() {
                   </div>
                   <div className="mt-6">
                     <label
-                      htmlFor="telefono"
+                      htmlFor="phone"
                       className="block text-gray-700 font-semibold mb-2"
                     >
                       Phone *
                     </label>
                     <input
                       type="tel"
-                      id="telefono"
-                      name="telefono"
-                      value={formData.telefono}
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
                       onChange={handleChange}
                       disabled={isSubmitting}
                       className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white text-gray-800 transition-colors ${
-                        errors.telefono ? "border-red-500" : "border-gray-300"
+                        errors.phone ? "border-red-500" : "border-gray-300"
                       } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                       placeholder="(555) 123-4567"
                     />
-                    {errors.telefono && (
+                    {errors.phone && (
                       <p className="text-red-500 text-sm mt-1 flex items-center">
                         <span className="mr-1">⚠️</span>
-                        {errors.telefono}
+                        {errors.phone}
                       </p>
                     )}
                   </div>
                   <div className="mt-6">
                     <label
-                      htmlFor="tipoServicio"
+                      htmlFor="serviceType"
                       className="block text-gray-700 font-semibold mb-2"
                     >
                       Service Type *
                     </label>
                     <select
-                      id="tipoServicio"
-                      name="tipoServicio"
-                      value={formData.tipoServicio}
+                      id="serviceType"
+                      name="serviceType"
+                      value={formData.serviceType}
                       onChange={handleChange}
                       disabled={isSubmitting}
                       className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] bg-white text-gray-800 transition-colors ${
-                        errors.tipoServicio
+                        errors.serviceType
                           ? "border-red-500"
                           : "border-gray-300"
                       } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
@@ -329,16 +329,16 @@ export default function AboutSection() {
                       <option value="">Select a service type</option>
                       <option value="interior">Interior Painting</option>
                       <option value="exterior">Exterior Painting</option>
-                      <option value="comercial">Commercial Painting</option>
-                      <option value="mantenimiento">
+                      <option value="commercial">Commercial Painting</option>
+                      <option value="maintenance">
                         Painting Maintenance
                       </option>
-                      <option value="otro">Other</option>
+                      <option value="other">Other</option>
                     </select>
-                    {errors.tipoServicio && (
+                    {errors.serviceType && (
                       <p className="text-red-500 text-sm mt-1 flex items-center">
                         <span className="mr-1">⚠️</span>
-                        {errors.tipoServicio}
+                        {errors.serviceType}
                       </p>
                     )}
                   </div>
@@ -346,7 +346,7 @@ export default function AboutSection() {
                   
                   <div className="mt-6">
                     <label
-                      htmlFor="cotizacionesArchivos"
+                      htmlFor="quoteFiles"
                       className="block text-gray-700 font-semibold mb-2"
                     >
                       Current Quotes (optional) 📋
@@ -364,8 +364,8 @@ export default function AboutSection() {
                     >
                       <input
                         type="file"
-                        id="cotizacionesArchivos"
-                        name="cotizacionesArchivos"
+                        id="quoteFiles"
+                        name="quoteFiles"
                         onChange={handleChange}
                         multiple
                         accept=".pdf"
@@ -373,7 +373,7 @@ export default function AboutSection() {
                         className="hidden"
                       />
                       <label
-                        htmlFor="cotizacionesArchivos"
+                        htmlFor="quoteFiles"
                         className={`cursor-pointer flex flex-col items-center ${
                           isSubmitting ? "cursor-not-allowed" : ""
                         }`}
@@ -387,12 +387,12 @@ export default function AboutSection() {
                         </p>
                       </label>
 
-                      {formData.cotizacionesArchivos.length > 0 && (
+                      {formData.quoteFiles.length > 0 && (
                         <div className="mt-4 text-left">
                           <p className="text-sm text-gray-700 font-medium mb-2">
                             Selected files:
                           </p>
-                          {formData.cotizacionesArchivos.map((file, index) => (
+                          {formData.quoteFiles.map((file, index) => (
                             <div
                               key={index}
                               className="flex items-center justify-between bg-gray-100 px-3 py-2 rounded mb-1"
@@ -433,27 +433,27 @@ export default function AboutSection() {
                   </div>
                   <div className="mt-6">
                     <label
-                      htmlFor="mensaje"
+                      htmlFor="message"
                       className="block text-gray-700 font-semibold mb-2"
                     >
                       Project Details *
                     </label>
                     <textarea
-                      id="mensaje"
-                      name="mensaje"
-                      value={formData.mensaje}
+                      id="message"
+                      name="message"
+                      value={formData.message}
                       onChange={handleChange}
                       disabled={isSubmitting}
                       rows="5"
                       className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] resize-none bg-white text-gray-800 transition-colors ${
-                        errors.mensaje ? "border-red-500" : "border-gray-300"
+                        errors.message ? "border-red-500" : "border-gray-300"
                       } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                       placeholder="Describe your project: size of the house/office, preferred colors, estimated dates, etc."
                     ></textarea>
-                    {errors.mensaje && (
+                    {errors.message && (
                       <p className="text-red-500 text-sm mt-1 flex items-center">
                         <span className="mr-1">⚠️</span>
-                        {errors.mensaje}
+                        {errors.message}
                       </p>
                     )}
                   </div>
@@ -461,8 +461,8 @@ export default function AboutSection() {
                     <label className="flex items-start cursor-pointer">
                       <input
                         type="checkbox"
-                        name="aceptaTerminos"
-                        checked={formData.aceptaTerminos}
+                        name="acceptTerms"
+                        checked={formData.acceptTerms}
                         onChange={handleChange}
                         disabled={isSubmitting}
                         className={`mt-1 mr-3 h-4 w-4 text-[#7ED957] transition-colors ${
@@ -475,10 +475,10 @@ export default function AboutSection() {
                         painting services *
                       </span>
                     </label>
-                    {errors.aceptaTerminos && (
+                    {errors.acceptTerms && (
                       <p className="text-red-500 text-sm mt-1 flex items-center">
                         <span className="mr-1">⚠️</span>
-                        {errors.aceptaTerminos}
+                        {errors.acceptTerms}
                       </p>
                     )}
                   </div>

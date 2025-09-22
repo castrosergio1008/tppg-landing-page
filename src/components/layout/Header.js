@@ -1,10 +1,10 @@
-// Importa el componente Image de Next.js
+// Import the Image component from Next.js
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Header() {
   return (
-    // La etiqueta <header> es el elemento raíz del componente
+    // The <header> tag is the root element of the component
     <header className="bg-white shadow-sm border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
@@ -33,4 +33,4 @@ export default function Header() {
     </header>
   );
 }
-//la clase Header se encarga de renderizar el encabezado de la página, incluyendo el logotipo y la navegación principal.
+//The Header class is responsible for rendering the page header, including the logo and the main navigation.

@@ -16,7 +16,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-gray-500 mb-6">
-              Transformando hogares y negocios con pintura profesional desde 2024
+              Transforming homes and businesses with professional painting since 2024
             </p>
             <div className="flex justify-center space-x-6">
               <Link href="#" className="text-gray-500 hover:text-[#7ED957] transition-colors">
@@ -29,7 +29,7 @@ export default function Footer() {
               </Link>
             </div>
             <div className="mt-8 pt-8 border-t border-gray-700 text-sm text-gray-500">
-              © 2024 The Pro Paint Group. Todos los derechos reservados.
+              © 2024 The Pro Paint Group. All rights reserved.
             </div>
           </div>
         </div>
