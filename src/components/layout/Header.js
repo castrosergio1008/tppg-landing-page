@@ -18,14 +18,14 @@ export default function Header() {
             />
           </div>
           <nav className="hidden md:flex space-x-8">
-            <Link href="#inicio" className="text-gray-600 hover:text-[#7ED957] transition-colors font-medium">
-                Inicio
+            <Link href="#home" className="text-gray-600 hover:text-[#7ED957] transition-colors font-medium">
+                Home
             </Link>
-            <Link href="#servicios" className="text-gray-600 hover:text-[#7ED957] transition-colors font-medium">
-                Servicios
+            <Link href="#services" className="text-gray-600 hover:text-[#7ED957] transition-colors font-medium">
+                Services
             </Link>
-            <Link href="#contacto" className="text-gray-600 hover:text-[#7ED957] transition-colors font-medium">
-                Contacto
+            <Link href="#contact" className="text-gray-600 hover:text-[#7ED957] transition-colors font-medium">
+                Contact
             </Link>
           </nav>
         </div>

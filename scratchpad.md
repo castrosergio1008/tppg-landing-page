@@ -21,6 +21,15 @@
 - [x] Subida de archivos (cotizaciones)
 - [x] Redirección post-envío
 
+#### Fase de Internacionalización (Inglés)
+- [x] Establecer `lang="en"` en el documento HTML.
+- [x] Traducir metadatos y contenido de la página principal (`index.js`).
+- [x] Traducir y renombrar la página de agradecimiento (`gracias.js` -> `thank-you.js`).
+- [x] Actualizar redirecciones a la nueva página de agradecimiento.
+- [x] Actualizar `robots.txt` para la nueva ruta.
+- [x] Traducir contenido de los componentes: `HeroSection`, `AboutSection`, `ServiciosSection`, `InfoSection`.
+- [x] Traducir contenido y mensajes del endpoint de la API (`api/leads.js`).
+
 ### 🚧 Tareas en Progreso
 
 #### Integración de Backend

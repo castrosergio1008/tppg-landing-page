@@ -10,12 +10,12 @@ export default function Home() {
   return (
     <>
             <SEO
-        title="Pintores Profesionales | Garantizamos Mejorar tu Cotización"
-        description="Servicios de pintura interior, exterior y comercial. Envíanos tu cotización actual y te garantizamos un mejor precio con acabados de alta calidad. ¡Solicita tu visita gratuita!"
-        keywords="pintores, pintura de casas, pintura comercial, cotización de pintura, mejorar cotización pintura, servicios de pintura"
-        canonical="https://www.tu-dominio.com" // Reemplaza con tu dominio
+        title="Professional Painters | We Guarantee to Beat Your Quote"
+        description="Interior, exterior, and commercial painting services. Send us your current quote, and we guarantee a better price with high-quality finishes. Request your free visit!"
+        keywords="painters, house painting, commercial painting, painting quote, beat painting quote, painting services"
+        canonical="https://www.tu-dominio.com" // Replace with your domain
       >
-        {/* Schema Markup para Negocio Local */}
+        {/* Schema Markup for Local Business */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -23,9 +23,9 @@ export default function Home() {
               "@context": "https://schema.org",
               "@type": "PaintingService",
               name: "The Pro Paint Group",
-              image: "https://www.tu-dominio.com/logotppg.png", // Reemplaza con la URL completa de tu logo
-              url: "https://www.tu-dominio.com", // Reemplaza con tu dominio
-              telephone: "+1234567890", // Reemplaza con tu teléfono
+              image: "https://www.tu-dominio.com/logotppg.png", // Replace with your logo's full URL
+              url: "https://www.tu-dominio.com", // Replace with your domain
+              telephone: "+1234567890", // Replace with your phone number
               priceRange: "$",
               address: {
                 "@type": "PostalAddress",
@@ -33,10 +33,10 @@ export default function Home() {
                 addressLocality: "City",
                 addressRegion: "State",
                 postalCode: "12345",
-                addressCountry: "US", // Reemplaza con tu información
+                addressCountry: "US", // Replace with your information
               },
               description:
-                "Servicios profesionales de pintura interior, exterior y comercial. Garantizamos mejorar cualquier cotización existente.",
+                "Professional interior, exterior, and commercial painting services. We guarantee to beat any existing quote.",
               openingHoursSpecification: {
                 "@type": "OpeningHoursSpecification",
                 dayOfWeek: [

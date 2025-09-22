@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 export default function AboutSection() {
      const router = useRouter();
 
-  // Estado del formulario
+  // Form state
   const initialState = {
     nombre: "",
     email: "",
@@ -23,7 +23,7 @@ export default function AboutSection() {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [fileErrors, setFileErrors] = useState([]);
 
-  // Funciones del formulario
+  // Form functions
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
 
@@ -33,9 +33,9 @@ export default function AboutSection() {
 
       Array.from(files).forEach((file) => {
         if (file.type !== "application/pdf") {
-          newFileErrors.push(`El archivo "${file.name}" no es un PDF.`);
+          newFileErrors.push(`File "${file.name}" is not a PDF.`);
         } else if (file.size > 10 * 1024 * 1024) {
-          newFileErrors.push(`El archivo "${file.name}" excede el tamaño máximo de 10MB.`);
+          newFileErrors.push(`File "${file.name}" exceeds the maximum size of 10MB.`);
         } else {
           currentFiles.push(file); // Add valid files to the list
         }
@@ -53,7 +53,7 @@ export default function AboutSection() {
       }));
     }
 
-    // Limpiar error cuando el usuario corrige
+    // Clear error when user corrects
     if (errors[name]) {
       setErrors((prev) => ({
         ...prev,
@@ -76,31 +76,31 @@ export default function AboutSection() {
     const newErrors = {};
 
     if (!formData.nombre.trim()) {
-      newErrors.nombre = "El nombre es requerido";
+      newErrors.nombre = "Full name is required";
     }
 
     if (!formData.email.trim()) {
-      newErrors.email = "El email es requerido";
+      newErrors.email = "Email is required";
     } else if (!validateEmail(formData.email)) {
-      newErrors.email = "El formato del email no es válido";
+      newErrors.email = "Invalid email format";
     }
 
     if (!formData.telefono.trim()) {
-      newErrors.telefono = "El teléfono es requerido";
+      newErrors.telefono = "Phone number is required";
     } else if (!validatePhone(formData.telefono)) {
-      newErrors.telefono = "El formato del teléfono no es válido";
+      newErrors.telefono = "Invalid phone number format";
     }
 
     if (!formData.tipoServicio) {
-      newErrors.tipoServicio = "Selecciona el tipo de servicio";
+      newErrors.tipoServicio = "Please select a service type";
     }
 
     if (!formData.mensaje.trim()) {
-      newErrors.mensaje = "El mensaje es requerido";
+      newErrors.mensaje = "Message is required";
     }
 
     if (!formData.aceptaTerminos) {
-      newErrors.aceptaTerminos = "Debes aceptar los términos y condiciones";
+      newErrors.aceptaTerminos = "You must accept the terms and conditions";
     }
 
     return newErrors;
@@ -113,7 +113,7 @@ export default function AboutSection() {
 
     if (Object.keys(formErrors).length > 0) {
       setErrors(formErrors);
-      // Scroll al primer error
+      // Scroll to first error
       const firstErrorElement = document.querySelector(".border-red-500");
       if (firstErrorElement) {
         firstErrorElement.scrollIntoView({
@@ -128,22 +128,22 @@ export default function AboutSection() {
     setErrors({});
 
     try {
-      // Crear FormData para enviar archivos
+      // Create FormData to send files
       const submitFormData = new FormData();
 
-      // Agregar campos de texto
+      // Add text fields
       Object.keys(formData).forEach((key) => {
         if (key !== "cotizacionesArchivos") {
           submitFormData.append(key, formData[key]);
         }
       });
 
-      // Agregar archivos
+      // Add files
       formData.cotizacionesArchivos.forEach((file) => {
         submitFormData.append("cotizacionesArchivos", file);
       });
 
-      // Enviar a API
+      // Send to API
       const response = await fetch("/api/leads", {
         method: "POST",
         body: submitFormData,
@@ -152,60 +152,60 @@ export default function AboutSection() {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.message || "Error al enviar la solicitud");
+        throw new Error(result.message || "Error submitting the form");
       }
 
-      // Éxito: redirigir a página de agradecimiento
-      router.push("/gracias");
+      // Success: redirect to thank you page
+      router.push("/thank-you");
     } catch (error) {
-      console.error("Error enviando formulario:", error);
+      console.error("Error submitting form:", error);
       setErrors({
         general:
-          "Hubo un error al enviar el formulario. Por favor, verifica tu conexión e intenta nuevamente.",
+          "There was an error submitting the form. Please check your connection and try again.",
       });
     } finally {
       setIsSubmitting(false);
     }
   };
   return (
-    <section id="contacto" className="py-24 bg-gray-50">
+    <section id="contact" className="py-24 bg-gray-50">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center mb-16">
                 <h2 className="text-4xl font-bold text-gray-900 mb-6">
-                  ¿Listo para renovar tu espacio?
+                  Ready to renovate your space?
                 </h2>
                 <p className="text-xl text-gray-600 leading-relaxed mb-8">
-                  Cuéntanos sobre tu proyecto de pintura y te contactaremos para
-                  programar una visita gratuita
+                  Tell us about your painting project and we will contact you to
+                  schedule a free visit.
                 </p>
                 <div className="bg-gradient-to-r from-[#7ED957]/10 to-[#082A37]/5 border-2 border-[#7ED957] rounded-2xl p-6 mb-8 max-w-3xl mx-auto">
                   <div className="flex items-center justify-center mb-4">
                     <span className="text-3xl mr-3">💰</span>
                     <h3 className="text-2xl font-bold text-[#082A37]">
-                      ¡Garantizamos mejorar cualquier cotización!
+                      We guarantee to beat any quote!
                     </h3>
                   </div>
                   <div className="text-left space-y-3 text-[#082A37]">
                     <div className="flex items-center">
                       <span className="text-[#7ED957] mr-2">✓</span>
                       <span>
-                        <strong>¿Ya tienes cotizaciones?</strong> Adjúntalas y
-                        te garantizamos mejorar el precio manteniendo la misma
-                        calidad
+                        <strong>Already have quotes?</strong> Attach them and
+                        we guarantee to beat the price while maintaining the same
+                        quality.
                       </span>
                     </div>
                     <div className="flex items-center">
                       <span className="text-[#7ED957] mr-2">✓</span>
                       <span>
-                        <strong>Análisis gratuito:</strong> Revisamos tu
-                        proyecto y optimizamos costos sin comprometer resultados
+                        <strong>Free analysis:</strong> We review your
+                        project and optimize costs without compromising results.
                       </span>
                     </div>
                     <div className="flex items-center">
                       <span className="text-[#7ED957] mr-2">✓</span>
                       <span>
-                        <strong>Precio final garantizado:</strong> No cobramos
-                        extras ocultos, el precio que cotizamos es el que pagas
+                        <strong>Guaranteed final price:</strong> We don't charge
+                        hidden extras, the price we quote is the price you pay.
                       </span>
                     </div>
                   </div>
@@ -213,8 +213,8 @@ export default function AboutSection() {
                     <p className="text-lg font-semibold text-[#082A37]">
                       📋{" "}
                       <em>
-                        Envía tus cotizaciones actuales y descubre cuánto puedes
-                        ahorrar
+                        Send your current quotes and find out how much you can
+                        save.
                       </em>
                     </p>
                   </div>
@@ -229,7 +229,7 @@ export default function AboutSection() {
                         htmlFor="nombre"
                         className="block text-gray-700 font-semibold mb-2"
                       >
-                        Nombre completo *
+                        Full Name *
                       </label>
                       <input
                         type="text"
@@ -243,7 +243,7 @@ export default function AboutSection() {
                         } ${
                           isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                         }`}
-                        placeholder="Tu nombre completo"
+                        placeholder="Your full name"
                       />
                       {errors.nombre && (
                         <p className="text-red-500 text-sm mt-1 flex items-center">
@@ -271,7 +271,7 @@ export default function AboutSection() {
                         } ${
                           isSubmitting ? "opacity-50 cursor-not-allowed" : ""
                         }`}
-                        placeholder="tu@email.com"
+                        placeholder="you@email.com"
                       />
                       {errors.email && (
                         <p className="text-red-500 text-sm mt-1 flex items-center">
@@ -286,7 +286,7 @@ export default function AboutSection() {
                       htmlFor="telefono"
                       className="block text-gray-700 font-semibold mb-2"
                     >
-                      Teléfono *
+                      Phone *
                     </label>
                     <input
                       type="tel"
@@ -312,7 +312,7 @@ export default function AboutSection() {
                       htmlFor="tipoServicio"
                       className="block text-gray-700 font-semibold mb-2"
                     >
-                      Tipo de servicio *
+                      Service Type *
                     </label>
                     <select
                       id="tipoServicio"
@@ -326,14 +326,14 @@ export default function AboutSection() {
                           : "border-gray-300"
                       } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
                     >
-                      <option value="">Selecciona el tipo de servicio</option>
-                      <option value="interior">Pintura Interior</option>
-                      <option value="exterior">Pintura Exterior</option>
-                      <option value="comercial">Pintura Comercial</option>
+                      <option value="">Select a service type</option>
+                      <option value="interior">Interior Painting</option>
+                      <option value="exterior">Exterior Painting</option>
+                      <option value="comercial">Commercial Painting</option>
                       <option value="mantenimiento">
-                        Mantenimiento de Pintura
+                        Painting Maintenance
                       </option>
-                      <option value="otro">Otro</option>
+                      <option value="otro">Other</option>
                     </select>
                     {errors.tipoServicio && (
                       <p className="text-red-500 text-sm mt-1 flex items-center">
@@ -349,10 +349,10 @@ export default function AboutSection() {
                       htmlFor="cotizacionesArchivos"
                       className="block text-gray-700 font-semibold mb-2"
                     >
-                      Cotizaciones actuales (opcional) 📋
+                      Current Quotes (optional) 📋
                       <span className="text-sm font-normal text-gray-500 block mt-1">
-                        Adjunta cotizaciones de otros proveedores para
-                        garantizar una mejor oferta
+                        Attach quotes from other providers to guarantee a better
+                        offer.
                       </span>
                     </label>
                     <div
@@ -380,17 +380,17 @@ export default function AboutSection() {
                       >
                         <div className="text-4xl text-gray-400 mb-2">📄</div>
                         <p className="text-gray-600 font-medium">
-                          Haz clic para seleccionar archivos PDF
+                          Click to select PDF files
                         </p>
                         <p className="text-sm text-gray-500 mt-1">
-                          Máximo 10MB por archivo
+                          Maximum 10MB per file
                         </p>
                       </label>
 
                       {formData.cotizacionesArchivos.length > 0 && (
                         <div className="mt-4 text-left">
                           <p className="text-sm text-gray-700 font-medium mb-2">
-                            Archivos seleccionados:
+                            Selected files:
                           </p>
                           {formData.cotizacionesArchivos.map((file, index) => (
                             <div
@@ -427,8 +427,8 @@ export default function AboutSection() {
                       )}
                     </div>
                     <div className="mt-2 text-xs text-gray-500">
-                      💡 <strong>Tip:</strong> Enviar cotizaciones existentes
-                      nos ayuda a ofrecerte un mejor precio y servicio
+                      💡 <strong>Tip:</strong> Sending existing quotes helps us
+                      offer you a better price and service.
                     </div>
                   </div>
                   <div className="mt-6">
@@ -436,7 +436,7 @@ export default function AboutSection() {
                       htmlFor="mensaje"
                       className="block text-gray-700 font-semibold mb-2"
                     >
-                      Detalles del proyecto *
+                      Project Details *
                     </label>
                     <textarea
                       id="mensaje"
@@ -448,7 +448,7 @@ export default function AboutSection() {
                       className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7ED957] resize-none bg-white text-gray-800 transition-colors ${
                         errors.mensaje ? "border-red-500" : "border-gray-300"
                       } ${isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
-                      placeholder="Describe tu proyecto: tamaño de la casa/oficina, colores preferidos, fechas estimadas, etc."
+                      placeholder="Describe your project: size of the house/office, preferred colors, estimated dates, etc."
                     ></textarea>
                     {errors.mensaje && (
                       <p className="text-red-500 text-sm mt-1 flex items-center">
@@ -470,9 +470,9 @@ export default function AboutSection() {
                         }`}
                       />
                       <span className="text-sm text-gray-700">
-                        Acepto los términos y condiciones y autorizo el
-                        tratamiento de mis datos para recibir información sobre
-                        servicios de pintura *
+                        I accept the terms and conditions and authorize the
+                        processing of my data to receive information about
+                        painting services *
                       </span>
                     </label>
                     {errors.aceptaTerminos && (
@@ -524,10 +524,10 @@ export default function AboutSection() {
                               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                             ></path>
                           </svg>
-                          Enviando solicitud...
+                          Sending request...
                         </span>
                       ) : (
-                        "Solicitar cotización gratuita"
+                        "Request a Free Quote"
                       )}
                     </button>
                   </div>

@@ -2,6 +2,6 @@ User-agent: *
 Allow: /
 
 Disallow: /api/
-Disallow: /gracias
+Disallow: /thank-you
 
 Sitemap: https://www.tu-dominio.com/sitemap.xml

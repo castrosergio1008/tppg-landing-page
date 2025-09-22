@@ -69,7 +69,7 @@ async function sendEmails(leadData, attachments) {
   const clientEmailOptions = {
     from: process.env.SMTP_USER,
     to: leadData.email,
-    subject: '✅ Solicitud de Cotización Recibida - The Pro Paint Group',
+    subject: '✅ Quote Request Received - The Pro Paint Group',
     html: `
         <!DOCTYPE html>
         <html>
@@ -87,21 +87,21 @@ async function sendEmails(leadData, attachments) {
         <body>
           <div class="container">
             <div class="header">
-              <h1>¡Gracias por contactarnos!</h1>
-              <p>Tu solicitud de cotización ha sido recibida</p>
+              <h1>Thank you for contacting us!</h1>
+              <p>Your quote request has been received</p>
             </div>
             <div class="content">
-              <h2>Hola ${leadData.nombre},</h2>
-              <p>Nos complace confirmar que hemos recibido tu solicitud de cotización para <span class="highlight">${getServiceName(leadData.tipoServicio)}</span>.</p>
-              <h3>📋 Resumen de tu solicitud:</h3>
+              <h2>Hi ${leadData.nombre},</h2>
+              <p>We are pleased to confirm that we have received your quote request for <span class="highlight">${getServiceName(leadData.tipoServicio)}</span>.</p>
+              <h3>📋 Summary of your request:</h3>
               <ul>
-                <li><strong>Nombre:</strong> ${leadData.nombre}</li>
-                <li><strong>Servicio:</strong> ${getServiceName(leadData.tipoServicio)}</li>
-                <li><strong>Teléfono:</strong> ${leadData.telefono}</li>
-                ${attachments.length > 0 ? `<li><strong>Cotizaciones adjuntas:</strong> ${attachments.length} archivo(s)</li>` : ''}
+                <li><strong>Name:</strong> ${leadData.nombre}</li>
+                <li><strong>Service:</strong> ${getServiceName(leadData.tipoServicio)}</li>
+                <li><strong>Phone:</strong> ${leadData.telefono}</li>
+                ${attachments.length > 0 ? `<li><strong>Attached quotes:</strong> ${attachments.length} file(s)</li>` : ''}
               </ul>
-              <h3>⏰ ¿Qué sigue?</h3>
-              <p>Nuestro equipo revisará tu proyecto y te contactará en las próximas <strong>24 horas</strong>.</p>
+              <h3>⏰ What's next?</h3>
+              <p>Our team will review your project and contact you within the next <strong>24 hours</strong>.</p>
             </div>
           </div>
         </body>
@@ -112,17 +112,17 @@ async function sendEmails(leadData, attachments) {
   const internalEmailOptions = {
     from: process.env.SMTP_USER,
     to: process.env.INTERNAL_EMAIL || process.env.SMTP_USER,
-    subject: `🔥 NUEVO LEAD: ${leadData.nombre} - ${getServiceName(leadData.tipoServicio)}`,
+    subject: `🔥 NEW LEAD: ${leadData.nombre} - ${getServiceName(leadData.tipoServicio)}`,
     html: `
         <!DOCTYPE html>
         <html>
         <body>
-          <h1>🎯 NUEVO LEAD RECIBIDO</h1>
-          <p><strong>Cliente:</strong> ${leadData.nombre}</p>
+          <h1>🎯 NEW LEAD RECEIVED</h1>
+          <p><strong>Client:</strong> ${leadData.nombre}</p>
           <p><strong>Email:</strong> ${leadData.email}</p>
-          <p><strong>Teléfono:</strong> ${leadData.telefono}</p>
-          <p><strong>Servicio:</strong> ${getServiceName(leadData.tipoServicio)}</p>
-          <p><strong>Mensaje:</strong> ${leadData.mensaje}</p>
+          <p><strong>Phone:</strong> ${leadData.telefono}</p>
+          <p><strong>Service:</strong> ${getServiceName(leadData.tipoServicio)}</p>
+          <p><strong>Message:</strong> ${leadData.mensaje}</p>
         </body>
         </html>
       `,
@@ -136,26 +136,26 @@ async function sendEmails(leadData, attachments) {
     ]);
   } catch (error) {
     console.error('Error sending emails:', error);
-    throw new APIError('Error al enviar los correos electrónicos', error);
+    throw new APIError('Error sending emails', error);
   }
 }
 
 function getServiceName(serviceType) {
   const services = {
-    interior: 'Pintura Interior',
-    exterior: 'Pintura Exterior',
-    comercial: 'Pintura Comercial',
-    mantenimiento: 'Mantenimiento de Pintura',
-    otro: 'Otro Servicio',
+    interior: 'Interior Painting',
+    exterior: 'Exterior Painting',
+    comercial: 'Commercial Painting',
+    mantenimiento: 'Painting Maintenance',
+    otro: 'Other Service',
   };
   return services[serviceType] || serviceType;
 }
 
-// --- Handler Principal ---
+// --- Main Handler ---
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Método no permitido' });
+    return res.status(405).json({ message: 'Method not allowed' });
   }
 
   let attachments = [];
@@ -176,7 +176,7 @@ export default async function handler(req, res) {
     const requiredFields = ['nombre', 'email', 'telefono', 'tipoServicio', 'mensaje'];
     const missingFields = requiredFields.filter(field => !leadData[field]);
     if (missingFields.length > 0) {
-      throw new ValidationError('Campos requeridos faltantes', { missingFields });
+      throw new ValidationError('Missing required fields', { missingFields });
     }
 
     const cotizacionesFiles = files.cotizacionesArchivos || [];
@@ -194,9 +194,9 @@ export default async function handler(req, res) {
     await sendEmails(leadData, attachments);
 
     res.status(200).json({ 
-      message: 'Lead procesado exitosamente',
+      message: 'Lead processed successfully',
       leadId: `LEAD_${Date.now()}`,
-      redirectUrl: '/gracias'
+      redirectUrl: '/thank-you'
     });
 
   } catch (error) {
@@ -209,13 +209,13 @@ export default async function handler(req, res) {
     } else if (error instanceof APIError) {
       console.error('API Error:', error.message, error.originalError);
       return res.status(error.statusCode).json({ 
-        message: process.env.NODE_ENV === 'development' ? error.message : 'Error interno del servidor', 
+        message: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
         error: process.env.NODE_ENV === 'development' ? error.originalError?.message || 'Unknown API Error' : undefined 
       });
     } else {
       console.error('Unexpected Error:', error);
       return res.status(500).json({ 
-        message: 'Ocurrió un error inesperado en el servidor', 
+        message: 'An unexpected error occurred on the server',
         error: process.env.NODE_ENV === 'development' ? error.message : undefined 
       });
     }

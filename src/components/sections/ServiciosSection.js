@@ -3,11 +3,10 @@ export default function ServiciosSection() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="text-center mb-16">
         <h2 className="text-4xl font-bold text-gray-900 mb-6">
-          Nuestros Servicios de Pintura
+          Our Painting Services
         </h2>
         <p className="text-xl text-gray-600">
-          Ofrecemos servicios completos de pintura para transformar cualquier
-          espacio
+          We offer complete painting services to transform any space.
         </p>
       </div>
 
@@ -17,11 +16,11 @@ export default function ServiciosSection() {
             <span className="text-[#082A37] text-3xl font-bold">🏠</span>
           </div>
           <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-            Pintura Interior
+            Interior Painting
           </h3>
           <p className="text-gray-600 leading-relaxed">
-            Transformamos tus espacios interiores con colores que reflejan tu
-            personalidad y estilo de vida
+            We transform your interior spaces with colors that reflect your
+            personality and lifestyle.
           </p>
         </div>
 
@@ -30,11 +29,11 @@ export default function ServiciosSection() {
             <span className="text-[#082A37] text-3xl font-bold">🏢</span>
           </div>
           <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-            Pintura Exterior
+            Exterior Painting
           </h3>
           <p className="text-gray-600 leading-relaxed">
-            Protegemos y embellecemos el exterior de tu propiedad con pinturas
-            de alta resistencia
+            We protect and beautify the exterior of your property with
+            high-resistance paints.
           </p>
         </div>
 
@@ -43,11 +42,11 @@ export default function ServiciosSection() {
             <span className="text-[#082A37] text-3xl font-bold">🔧</span>
           </div>
           <h3 className="text-2xl font-semibold text-gray-900 mb-4">
-            Mantenimiento
+            Maintenance
           </h3>
           <p className="text-gray-600 leading-relaxed">
-            Servicios de mantenimiento preventivo y correctivo para mantener tu
-            propiedad como nueva
+            Preventive and corrective maintenance services to keep your
+            property like new.
           </p>
         </div>
       </div>
